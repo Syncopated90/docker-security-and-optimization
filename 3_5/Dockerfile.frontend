@@ -4,8 +4,10 @@ COPY code/example-frontend .
 
 RUN apt-get update && apt-get install -y curl
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash && apt install -y nodejs
+ENV REACT_APP_BACKEND_URL=http://127.0.0.1:8080
 RUN npm install && npm run build && npm install -g serve
 EXPOSE 5001
+
 
 RUN useradd -m appuser
 RUN chown appuser .

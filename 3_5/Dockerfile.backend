@@ -4,7 +4,7 @@ COPY code/example-backend .
 EXPOSE 8080
 
 ENV PORT=8080
-ENV REQUEST_ORIGIN=https://example.com
+ENV REQUEST_ORIGIN=http://localhost:5001
 RUN go build && go test ./...
 
 RUN useradd -m appuser
