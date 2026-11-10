@@ -53,9 +53,9 @@ docker images "${IMAGE_NAME}"
 #login
 echo "======================================"
 echo " Build and push completed!"
-echo " logging in with $DOCKER_USERNAME and $DOCKER_PASSWORD"
+echo " logging in with $DOCKER_USER and $DOCKER_PASSWORD"
 echo "======================================"
-docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
+docker login --username="$DOCKER_USER" --password="$DOCKER_PASSWORD"
 # Push image
 echo "[4/4] Pushing image to Docker Hub..."
 docker image tag "$IMAGE_NAME" "$IMAGE_NAME"
