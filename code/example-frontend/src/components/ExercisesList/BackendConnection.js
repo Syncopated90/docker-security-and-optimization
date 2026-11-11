@@ -12,7 +12,7 @@ const BackendConnection = () => {
   const testConnection = async () => {
     updateSuccess("");
     try {
-      console.log("process.env.REACT_APP_BACKEND_URL");
+      console.log(process.env.REACT_APP_BACKEND_URL);
       const res = await pingpong();
       if (res.data !== "pong") throw new Error("Response was not pong.");
 
