@@ -1,11 +1,17 @@
-FROM golang:1.27-alpine
+FROM golang:1.27-alpine AS builder
 WORKDIR /usr/app/src
 COPY code/example-backend .
 EXPOSE 8080
 
 ENV PORT=8080
 ENV REQUEST_ORIGIN=http://localhost:5001
-RUN go build && go test ./... && rm -rf cache && rm app_test.go && adduser --disabled-password appuser && chown appuser .
+RUN go build && go test ./...  
+RUN adduser --disabled-password appuser && chown appuser .
+
+FROM scratch
+WORKDIR /usr/app/src
+COPY --from=builder /usr/app/src/server .
+COPY --from=builder /etc/passwd /etc/passwd
 USER appuser
 
 CMD ["./server"]
