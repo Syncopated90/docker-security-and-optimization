@@ -3,13 +3,14 @@ WORKDIR /usr/app/src
 COPY code/example-backend .
 EXPOSE 8080
 
-ENV PORT=8080
-ENV REQUEST_ORIGIN=http://localhost:5001
+
 RUN go build && go test ./...  
 RUN adduser --disabled-password appuser && chown appuser .
 
 FROM scratch
 WORKDIR /usr/app/src
+ENV PORT=8080
+ENV REQUEST_ORIGIN=http://localhost:5001
 COPY --from=builder /usr/app/src/server .
 COPY --from=builder /etc/passwd /etc/passwd
 USER appuser
