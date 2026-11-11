@@ -4,11 +4,12 @@ COPY code/example-frontend .
 ENV REACT_APP_BACKEND_URL=http://127.0.0.1:8080
 
 RUN npm install && npm run build && npm install -g serve
+RUN adduser --disabled-password appuser && chown appuser .
 
 FROM scratch
 WORKDIR /usr/app/src
 COPY --from=builder usr/app/src/build /usr/app/src/build
-RUN adduser --disabled-password appuser && chown appuser .
+COPY --from=builder /etc/passwd /etc/passwd
 EXPOSE 5001
 USER appuser
 
